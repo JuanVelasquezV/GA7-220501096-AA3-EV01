@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inicio - KreaTuMoto</title>
+  <link rel="stylesheet" href="home.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <div class="logo">TALLER Y ALMACÉN DE MOTOS JCV</div>
+    <div class="user-actions">
+      <button id="login-btn">Iniciar sesión</button>
+      <button id="register-btn">Registrarse</button>
+      <div id="user-greeting" style="display: none;">
+        Bienvenido, <span id="username-display"></span>
+        <button id="logout-btn">Cerrar sesión</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="contenido">
+    <section class="quienes">
+      <div class="texto">
+        <h1>¿Quiénes somos?</h1>
+        <h2>TALLER Y ALMACÉN DE MOTOS</h2>
+        <p>Somos especialistas en personalización y mantenimiento de motocicletas. Ofrecemos servicios mecánicos, venta de repuestos y personalización de motos para crear la máquina de tus sueños.</p>
+        <button onclick="location.href='#'">CONOCE MÁS</button>
+      </div>
+      <div class="imagen">
+        <img src="https://seremprendedores.com/imagenes/que-se-necesita-para-abrir-un-taller-de-motos-.jpg" alt="Taller de motos">
+      </div>
+    </section>
+
+    <section class="info">
+      <h2>Misión</h2>
+      <p>Proporcionar servicios de calidad para motocicletas, combinando técnica profesional y pasión por las dos ruedas.</p>
+
+      <h2>Visión</h2>
+      <p>Ser el taller de referencia para moteros que buscan excelencia mecánica y personalización única.</p>
+
+      <h2>Valores</h2>
+      <ul>
+        <li>Pasión por las motos - Vivimos lo que hacemos</li>
+        <li>Experiencia técnica - Profesionales certificados</li>
+        <li>Personalización - Cada moto es única</li>
+        <li>Garantía - Trabajos con respaldo</li>
+      </ul>
+    </section>
+
+    <!-- Contenido protegido solo para usuarios logueados -->
+    <section class="protected-content" id="protected-content">
+      <h2>Área exclusiva para clientes</h2>
+      <p>Accede a nuestros servicios premium y seguimiento de tu moto</p>
+      <div class="carousel">
+        <button onclick="location.href='../store/store.html'">Almacén de Repuestos</button>
+        <button onclick="location.href='../workshop/workshop.html'">Mi Taller Virtual</button>
+        <button onclick="location.href='../custom/custom.html'">Personalización</button>
+      </div>
+    </section>
+
+    <!-- Nuevas secciones específicas para motos -->
+    <section class="servicios">
+      <h2>Nuestros Servicios</h2>
+      <div class="servicios-grid">
+        <div class="servicio">
+          <h3>Mantenimiento</h3>
+          <p>Servicios de mantenimiento preventivo y correctivo para todas las marcas.</p>
+        </div>
+        <div class="servicio">
+          <h3>Personalización</h3>
+          <p>Desde pequeños detalles hasta transformaciones completas de tu moto.</p>
+        </div>
+        <div class="servicio">
+          <h3>Repuestos</h3>
+          <p>Amplio stock de repuestos originales y alternativos de calidad.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+      const loginBtn = document.getElementById('login-btn');
+      const registerBtn = document.getElementById('register-btn');
+      const userGreeting = document.getElementById('user-greeting');
+      const usernameDisplay = document.getElementById('username-display');
+      const logoutBtn = document.getElementById('logout-btn');
+      const protectedContent = document.getElementById('protected-content');
+
+      // Configurar rutas de los botones
+      loginBtn.addEventListener('click', () => window.location.href = 'login/login.html');
+      registerBtn.addEventListener('click', () => window.location.href = 'register/register.html');
+
+      // Manejar logout
+      logoutBtn.addEventListener('click', function() {
+        localStorage.removeItem('currentUser');
+        location.reload();
+      });
+
+      // Si hay usuario logueado
+      if (currentUser) {
+        loginBtn.style.display = 'none';
+        registerBtn.style.display = 'none';
+        userGreeting.style.display = 'flex';
+        usernameDisplay.textContent = currentUser.username;
+        protectedContent.style.display = 'block';
+      } else {
+        protectedContent.style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>
